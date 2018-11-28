@@ -1,12 +1,16 @@
 import { Card } from "../definitions/Card";
 import * as _ from 'underscore';
 
-class Deck {
+export default class Deck {
     deck: Card[];
+    topCard: Card;
 
     constructor() {
         this.deck = [];
-    
+        this.topCard = {
+          suit: '',
+          value: ''
+        };
         const suits = ['Hearts', 'Spades', 'Clubs', 'Diamonds'];
         const values = ['Ace', 2, 3, 4, 5, 6, 7, 8, 9, 10, 'Jack', 'Queen', 'King'];
     
@@ -21,21 +25,20 @@ class Deck {
       }
 
       createDeck() {
-       this.deck = _.shuffle(this.deck);
-       return(this.deck);
+       return _.shuffle(this.deck) as Card[];
       }
 
-      drawTop() {
-        return this.deck.pop();
+      drawTop(deck: Card[]) {
+        // @ts-ignore
+        this.topCard = deck.pop();
+        return this.topCard;
       }
 
-      drawHand() {
+      drawHand(deck: Card[]) {
         return [
-          this.drawTop(),
-          this.drawTop(),
-          this.drawTop()
+          this.drawTop(deck),
+          this.drawTop(deck),
+          this.drawTop(deck)
         ]
       }
 }
-
-export default Deck;

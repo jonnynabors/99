@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
-import Hand from './components/Hand';
+import Hand from './components/PlayerHand';
+import { Card } from './definitions/Card';
+import Deck from './service/Deck';
+import PlayerHand from './components/PlayerHand';
 
-class App extends Component {
+const deck = new Deck();
+export interface State {
+  deck: Card[]
+}
+class App extends Component<{}, State> {
+  constructor(props: any) {
+    super(props)
+    this.state = {
+        deck: deck
+    }
+}
   render() {
     return (
       <div className="App">
-        <Hand/>
+        <PlayerHand currentCards={this.state.deck}/>
       </div>
     );
   }
